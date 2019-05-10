@@ -1,5 +1,6 @@
 # magento-chartjs-dashboard
 replaces the default image chart with chart js for better dependability
+- tested on mage 1.9.4.1
 
 
 # IMPORTANT
