@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Lprcs_Chartjsdashboard>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.0</version>
+    </Lprcs_Chartjsdashboard>
+  </modules>
+</config>

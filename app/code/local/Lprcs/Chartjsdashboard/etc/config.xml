@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Lprcs_Chartjsdashboard>
+            <version>0.1.0</version>
+        </Lprcs_Chartjsdashboard>
+    </modules>
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <dashboard_graph>Lprcs_Chartjsdashboard_Block_Dashboard_Graph</dashboard_graph>
+                    <dashboard_tab_orders>Lprcs_Chartjsdashboard_Block_Dashboard_Tab_Orders</dashboard_tab_orders>
+                    <dashboard_tab_amounts>Lprcs_Chartjsdashboard_Block_Dashboard_Tab_Amounts</dashboard_tab_amounts>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+</config>

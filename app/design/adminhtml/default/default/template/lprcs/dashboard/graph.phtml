@@ -1,0 +1,85 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2006-2019 Magento, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php // include chart js resources ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
+
+<div style="margin:20px;">
+    <p class="switcher a-right" style="padding:5px 10px;"><?php echo $this->__('Select Range') ?>:
+        <select name="period" id="order_<?php echo $this->getHtmlId() ?>_period" onchange="changeDiagramsPeriod(this);">
+            <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value=>$_label): ?>
+                <?php if($_value === 'custom') continue; ?>
+                <option value="<?php echo $_value ?>" <?php if($this->getRequest()->getParam('period')==$_value): ?> selected="selected"<?php endif; ?>><?php echo $_label ?></option>
+            <?php endforeach; ?>
+        </select></p><br/>
+    <?php
+    $_containerStyle = "width:{$this->getWidth()}px;height:{$this->getHeight()}px; margin:0 auto;";
+    ?>
+    <?php if($this->getCount()): ?>
+        <div class="canvasContainer" style="<?php echo $_containerStyle; ?>">
+            <canvas id="line-chart-<?php echo $this->getHtmlId() ?>"></canvas>
+        </div>
+        <script>
+            let chartInfo = <?php echo json_encode($this->getChartData()); ?>;
+            // console.log(chartInfo);
+            let ctx = document.getElementById('line-chart-<?php echo $this->getHtmlId() ?>').getContext('2d');
+            let myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartInfo.dates,
+                    datasets: [
+                        {
+                            label: chartInfo.attr,
+                            borderColor: "#EA7601",
+                            fill: true,
+                            lineTension: 0.5,
+                            backgroundColor: "rgba(234,118,1,0.50)",
+                            data: chartInfo.serie,
+                        }
+                    ]
+                },
+                options: {
+                    legend: false,
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    hover: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+        </script>
+
+    <?php else: ?>
+        <p class="a-center" style="<?php echo $_containerStyle?>"><?php echo $this->__('No Data Found') ?></p>
+    <?php endif; ?>
+</div>
